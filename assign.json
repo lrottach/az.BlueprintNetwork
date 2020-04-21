@@ -1,0 +1,31 @@
+{
+    "identity": {
+        "type": "systemAssigned"
+    },
+    "location": "westeurope",
+    "properties": {
+        "blueprintId": "",
+        "resourceGroups": {
+            "resourceGroup1": {
+                "name": "rg-vnethub-westeu-001",
+                "location": "westeurope"
+            },
+            "resourceGroup2": {
+                "name": "rg-vnetspoke-westeu-001",
+                "location": "westeurope"
+            },
+            "resourceGroup3": {
+                "name": "rg-vnetspoke-westeu-002",
+                "location": "westeurope"
+            }
+        },
+        "locks": {
+            "mode": ""
+        },
+        "parameters": {
+            "defaultParameter": {
+                "value": "default"
+            }
+        }
+    }
+}
