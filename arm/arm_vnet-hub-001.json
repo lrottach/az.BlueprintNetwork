@@ -1,0 +1,73 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "adressRangeVnet": {
+                "type": "string",
+                "defaultValue": "10.1.0.0/24"
+            },
+            "adressRangeSubnetGateway": {
+                "type": "string",
+                "defaultValue": "10.1.0.0/27"
+            },
+            "adressRangeSubnetBastion": {
+                "type": "string",
+                "defaultValue": "10.1.0.32/27"
+            },
+            "adressRangeSubnetPublic": {
+                "type": "string",
+                "defaultValue": "10.1.0.64/27"
+            },
+            "adressRangeSubnetProd": {
+                "type": "string",
+                "defaultValue": "10.1.0.96/27"
+            }
+        },
+    "functions": [],
+    "variables": {},
+    "resources": [
+        {
+                "name": "virtualNetwork1",
+                "type": "Microsoft.Network/virtualNetworks",
+                "apiVersion": "2015-06-15",
+                "location": "[resourceGroup().location]",
+                "tags": {
+                    "displayName": "virtualNetwork1"
+                },
+                "properties": {
+                    "addressSpace": {
+                        "addressPrefixes": [
+                            "[parameters('adressRangeVnet')]"
+                        ]
+                    },
+                    "subnets": [
+                        {
+                            "name": "Gateway",
+                            "properties": {
+                                "addressPrefix": "[parameters('adressRangeSubnetGateway')]"
+                            }
+                        },
+                        {
+                            "name": "Bastion",
+                            "properties": {
+                                "addressPrefix": "[parameters('adressRangeSubnetBastion')]"
+                            }
+                        },
+                        {
+                            "name": "Public",
+                            "properties": {
+                                "addressPrefix": "[parameters('adressRangeSubnetPublic')]"
+                            }
+                        },
+                        {
+                            "name": "Prod",
+                            "properties": {
+                                "addressPrefix": "[parameters('adressRangeSubnetProd')]"
+                            }
+                        }
+                    ]
+                }
+            }
+        ],
+    "outputs": {}
+}

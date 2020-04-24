@@ -1,11 +1,23 @@
 {
     "kind": "template",
     "properties": {
-      "dependsOn": [""],
+      "dependsOn": [],
       "template": {
-        "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+        "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
         "contentVersion": "1.0.0.0",
         "parameters": {
+            "creator": {
+                "type": "string",
+                "metadata": {
+                    "displayName": "Resource creator"
+                }
+            },
+            "creationDate": {
+                "type": "string",
+                "metadata": {
+                    "displayName": "Resource creation date"
+                }
+            },
             "adressRangeVnet": {
                 "type": "string",
                 "defaultValue": "10.1.0.0/24"
@@ -24,14 +36,14 @@
             },
             "adressRangeSubnetProd": {
                 "type": "string",
-                "defaultValue": "10.1.0.96/24"
-            }
+                "defaultValue": "10.1.0.96/27"
+            }           
         },
         "resources": [
             {
                 "name": "virtualNetwork1",
                 "type": "Microsoft.Network/virtualNetworks",
-                "apiVersion": "2019-11-01",
+                "apiVersion": "2015-06-15",
                 "location": "[resourceGroup().location]",
                 "tags": {
                     "displayName": "virtualNetwork1"
@@ -73,7 +85,7 @@
         ]
       },
       "resourceGroup": "resourceGroup1",
-      "displayName": "Virtual hub network 01",
+      "displayName": "vnet-hub-001",
       "parameters": {
         "creator": {
           "value": "[parameters('globalCreator')]"

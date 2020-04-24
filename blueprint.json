@@ -1,7 +1,7 @@
 {
     "properties": {
         "description": "Basic hub and spoke vnet architecture.",
-        "targetScope": "",
+        "targetScope": "subscription",
         "parameters": { 
             "globalCreator": {
                 "type": "string",
@@ -22,16 +22,23 @@
         },
         "resourceGroups": {
             "resourceGroup1": {
-                "description": "Resource Group for virtual hub network"
+                "metadata": {
+                    "displayName": "Resource Group for virtual hub network"
+                }
             },
             "resourceGroup2": {
-                "description": "Resource Group for virtual spoke network 01"
+                "metadata": {
+                    "displayName": "Resource Group for virtual spoke network 01"
+                }
             },
             "resourceGroup3": {
-                "description": "Resource Group for virtual spoke network 02"
+                "metadata": {
+                    "displayName": "Resource Group for virtual spoke network 02"
+                }
             }
         }
     },
     "type": "Microsoft.Blueprint/blueprints",
-    "name": "blueprint-concpet"
+    "name": "blueprint-concept",
+    "id": "/subscriptions/df4eab72-2d98-40a8-be5b-26b4589f9c23/providers/Microsoft.Blueprint/blueprints/BlueprintConcept"
 }
