@@ -3,8 +3,9 @@
         "type": "systemAssigned"
     },
     "location": "westeurope",
+    "type": "Microsoft.Blueprint/blueprintAssignments",
     "properties": {
-        "blueprintId": "",
+        "blueprintId": "/subscriptions/df4eab72-2d98-40a8-be5b-26b4589f9c23/providers/Microsoft.Blueprint/blueprints/BlueprintConcept/versions/0.1",
         "resourceGroups": {
             "resourceGroup1": {
                 "name": "rg-vnethub-westeu-001",
@@ -18,6 +19,9 @@
                 "name": "rg-vnetspoke-westeu-002",
                 "location": "westeurope"
             }
+        },
+        "locks": {
+            "mode": "none"
         },
         "parameters": {
             "globalCreator": {

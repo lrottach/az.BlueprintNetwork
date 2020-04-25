@@ -3,7 +3,7 @@
     "properties": {
       "dependsOn": [],
       "template": {
-        "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+        "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
         "contentVersion": "1.0.0.0",
         "parameters": {
             "creator": {
@@ -37,8 +37,10 @@
             "adressRangeSubnetProd": {
                 "type": "string",
                 "defaultValue": "10.1.0.96/27"
-            }           
+            }
         },
+        "functions": [],
+        "variables": {},
         "resources": [
             {
                 "name": "virtualNetwork1",
@@ -82,7 +84,8 @@
                     ]
                 }
             }
-        ]
+        ],
+        "outputs": {}
       },
       "resourceGroup": "resourceGroup1",
       "displayName": "vnet-hub-001",
