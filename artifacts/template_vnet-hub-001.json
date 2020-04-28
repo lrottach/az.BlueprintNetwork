@@ -18,6 +18,12 @@
                     "displayName": "Resource creation date"
                 }
             },
+            "purpose": {
+                "type": "string",
+                "metadata": {
+                    "displayName": "Resource purpose"
+                }
+            },
             "adressRangeVnet": {
                 "type": "string",
                 "defaultValue": "10.1.0.0/24"
@@ -43,12 +49,14 @@
         "variables": {},
         "resources": [
             {
-                "name": "virtualNetwork1",
+                "name": "vnethub-westeu-001",
                 "type": "Microsoft.Network/virtualNetworks",
                 "apiVersion": "2015-06-15",
                 "location": "[resourceGroup().location]",
                 "tags": {
-                    "displayName": "virtualNetwork1"
+                    "creator": "[parameters('creator')]",
+                    "creationDate": "[parameters('creationDate')]",
+                    "purpose": "[parameters('purpose')]"
                 },
                 "properties": {
                     "addressSpace": {
@@ -95,7 +103,10 @@
         },
         "creationDate": {
             "value": "[parameters('globalCreationDate')]"
-          }
+        },
+        "purpose": {
+            "value": "[parameters('globalPurpose')]"
+        }
       }
     },
     "type": "Microsoft.Blueprint/blueprints/artifacts",
