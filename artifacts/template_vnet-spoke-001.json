@@ -1,0 +1,114 @@
+{
+    "kind": "template",
+    "properties": {
+      "dependsOn": [],
+      "template": {
+        "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+        "contentVersion": "1.0.0.0",
+        "parameters": {
+            "creator": {
+                "type": "string",
+                "metadata": {
+                    "displayName": "Resource creator"
+                }
+            },
+            "creationDate": {
+                "type": "string",
+                "metadata": {
+                    "displayName": "Resource creation date"
+                }
+            },
+            "purpose": {
+                "type": "string",
+                "metadata": {
+                    "displayName": "Resource purpose"
+                }
+            },
+            "adressRangeVnet": {
+                "type": "string",
+                "defaultValue": "10.1.1.0/24"
+            },
+            "adressRangeSubnetGateway": {
+                "type": "string",
+                "defaultValue": "10.1.1.0/27"
+            },
+            "adressRangeSubnetBastion": {
+                "type": "string",
+                "defaultValue": "10.1.1.32/27"
+            },
+            "adressRangeSubnetProd": {
+                "type": "string",
+                "defaultValue": "10.1.1.64/27"
+            },
+            "adressRangeSubnetManagement": {
+                "type": "string",
+                "defaultValue": "10.1.1.96/27"
+            }
+        },
+        "functions": [],
+        "variables": {},
+        "resources": [
+            {
+                "name": "vnetspoke-westeu-001",
+                "type": "Microsoft.Network/virtualNetworks",
+                "apiVersion": "2015-06-15",
+                "location": "[resourceGroup().location]",
+                "tags": {
+                    "creator": "[parameters('creator')]",
+                    "creationDate": "[parameters('creationDate')]",
+                    "purpose": "[parameters('purpose')]"
+                },
+                "properties": {
+                    "addressSpace": {
+                        "addressPrefixes": [
+                            "[parameters('adressRangeVnet')]"
+                        ]
+                    },
+                    "subnets": [
+                        {
+                            "name": "Gateway",
+                            "properties": {
+                                "addressPrefix": "[parameters('adressRangeSubnetGateway')]"
+                            }
+                        },
+                        {
+                            "name": "Bastion",
+                            "properties": {
+                                "addressPrefix": "[parameters('adressRangeSubnetBastion')]"
+                            }
+                        },
+                        {
+                            "name": "Public",
+                            "properties": {
+                                "addressPrefix": "[parameters('adressRangeSubnetProd')]"
+                            }
+                        },
+                        {
+                            "name": "Prod",
+                            "properties": {
+                                "addressPrefix": "[parameters('adressRangeSubnetManagement')]"
+                            }
+                        }
+                    ]
+                }
+            }
+        ],
+        "outputs": {}
+      },
+      "resourceGroup": "resourceGroup2",
+      "displayName": "vnet-hub-001",
+      "parameters": {
+        "creator": {
+          "value": "[parameters('globalCreator')]"
+        },
+        "creationDate": {
+            "value": "[parameters('globalCreationDate')]"
+        },
+        "purpose": {
+            "value": "[parameters('globalPurpose')]"
+        }
+      }
+    },
+    "type": "Microsoft.Blueprint/blueprints/artifacts",
+    "name": "vnet-spoke-001"
+}
