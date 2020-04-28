@@ -5,7 +5,7 @@
     "location": "westeurope",
     "type": "Microsoft.Blueprint/blueprintAssignments",
     "properties": {
-        "blueprintId": "/subscriptions/df4eab72-2d98-40a8-be5b-26b4589f9c23/providers/Microsoft.Blueprint/blueprints/BlueprintConcept/versions/0.1",
+        "blueprintId": "/subscriptions/df4eab72-2d98-40a8-be5b-26b4589f9c23/providers/Microsoft.Blueprint/blueprints/BlueprintConcept",
         "resourceGroups": {
             "resourceGroup1": {
                 "name": "rg-vnethub-westeu-001",
@@ -18,6 +18,10 @@
             "resourceGroup3": {
                 "name": "rg-vnetspoke-westeu-002",
                 "location": "westeurope"
+            },
+            "resourceGroup4": {
+                "name": "rg-sa-westeu-001",
+                "location": "westeurope"
             }
         },
         "locks": {
@@ -29,6 +33,9 @@
             },
             "globalCreationDate": {
                 "value": "24-04-2020"
+            },
+            "globalPurpose": {
+                "value": "production"
             }
         }
     }

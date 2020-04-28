@@ -18,6 +18,19 @@
                     "description": "Specifies the creation date for later tagging",
                     "displayName": "Resource Creation Date"
                 }
+            },
+            "globalPurpose": {
+                "type": "string",
+                "defaultValue": "production",
+                "allowedValues": [
+                    "production",
+                    "test",
+                    "development"
+                ],
+                "metadata": {
+                    "description": "Specifies the creation date for later tagging",
+                    "displayName": "Resource Creation Date"
+                }
             }
         },
         "resourceGroups": {
@@ -35,10 +48,15 @@
                 "metadata": {
                     "displayName": "Resource Group for virtual spoke network 02"
                 }
+            },
+            "resourceGroup4": {
+                "metadata": {
+                    "displayName": "Resource Group for storage account"
+                }
             }
         }
     },
     "type": "Microsoft.Blueprint/blueprints",
     "name": "blueprint-concept",
-    "id": "/subscriptions/df4eab72-2d98-40a8-be5b-26b4589f9c23/providers/Microsoft.Blueprint/blueprints/BlueprintConcept"
+    "id": ""
 }
