@@ -36,11 +36,11 @@
                 "type": "string",
                 "defaultValue": "10.1.0.32/27"
             },
-            "adressRangeSubnetPublic": {
+            "adressRangeSubnetFirewall": {
                 "type": "string",
                 "defaultValue": "10.1.0.64/27"
             },
-            "adressRangeSubnetProd": {
+            "adressRangeSubnetPublic": {
                 "type": "string",
                 "defaultValue": "10.1.0.96/27"
             }
@@ -78,15 +78,15 @@
                             }
                         },
                         {
-                            "name": "Public",
+                            "name": "Firewall",
                             "properties": {
-                                "addressPrefix": "[parameters('adressRangeSubnetPublic')]"
+                                "addressPrefix": "[parameters('adressRangeSubnetFirewall')]"
                             }
                         },
                         {
-                            "name": "Prod",
+                            "name": "Public",
                             "properties": {
-                                "addressPrefix": "[parameters('adressRangeSubnetProd')]"
+                                "addressPrefix": "[parameters('adressRangeSubnetPublic')]"
                             }
                         }
                     ]
