@@ -1,0 +1,15 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+      "existingLocalVirtualNetworkName": {
+        "value": "vnethub-westeu-001"
+      },
+      "existingRemoteVirtualNetworkName": {
+        "value": "vnetspoke-westeu-001"
+      },
+      "existingRemoteVirtualNetworkResourceGroupName": {
+        "value": "rg-vnetspoke-westeu-001"
+      }
+    }
+  }
