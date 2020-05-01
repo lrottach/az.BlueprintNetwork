@@ -26,30 +26,30 @@
             },
             "adressRangeVnet": {
                 "type": "string",
-                "defaultValue": "10.1.1.0/24"
+                "defaultValue": "10.1.2.0/24"
             },
             "adressRangeSubnetBastion": {
                 "type": "string",
-                "defaultValue": "10.1.1.0/27"
+                "defaultValue": "10.1.2.0/27"
             },
             "adressRangeSubnetFirewall": {
                 "type": "string",
-                "defaultValue": "10.1.1.32/27"
+                "defaultValue": "10.1.2.32/27"
             },
             "adressRangeSubnetProd": {
                 "type": "string",
-                "defaultValue": "10.1.1.64/27"
+                "defaultValue": "10.1.2.64/27"
             },
-            "adressRangeSubnetDomain": {
+            "adressRangeSubnetDesktop": {
                 "type": "string",
-                "defaultValue": "10.1.1.96/27"
+                "defaultValue": "10.1.2.96/27"
             }
         },
         "functions": [],
         "variables": {},
         "resources": [
             {
-                "name": "vnetspoke-westeu-001",
+                "name": "vnetspoke-westeu-002",
                 "type": "Microsoft.Network/virtualNetworks",
                 "apiVersion": "2015-06-15",
                 "location": "[resourceGroup().location]",
@@ -84,9 +84,9 @@
                             }
                         },
                         {
-                            "name": "DomainServices",
+                            "name": "DesktopServices",
                             "properties": {
-                                "addressPrefix": "[parameters('adressRangeSubnetDomain')]"
+                                "addressPrefix": "[parameters('adressRangeSubnetDesktop')]"
                             }
                         }
                     ]
@@ -95,8 +95,8 @@
         ],
         "outputs": {}
       },
-      "resourceGroup": "resourceGroup2",
-      "displayName": "vnet-spoke-001",
+      "resourceGroup": "resourceGroup3",
+      "displayName": "vnet-spoke-002",
       "parameters": {
         "creator": {
           "value": "[parameters('globalCreator')]"
@@ -110,5 +110,5 @@
       }
     },
     "type": "Microsoft.Blueprint/blueprints/artifacts",
-    "name": "vnet-spoke-001"
+    "name": "vnet-spoke-002"
 }
