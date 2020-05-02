@@ -1,11 +1,20 @@
 {
     "kind": "template",
     "properties": {
-      "dependsOn": [],
+      "dependsOn": [
+          "template_vnet-hub-001"
+      ],
       "template": {
         "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
         "contentVersion": "1.0.0.0",
         "parameters": {
+            "networkName": {
+                "type": "string",
+                "defaultValue": "vnetspoke-westeu-002",
+                "metadata": {
+                    "displayName": "Name of virtual network"
+                }
+            },
             "creator": {
                 "type": "string",
                 "metadata": {
@@ -49,7 +58,7 @@
         "variables": {},
         "resources": [
             {
-                "name": "vnetspoke-westeu-002",
+                "name": "[parameters('networkName')]",
                 "type": "Microsoft.Network/virtualNetworks",
                 "apiVersion": "2015-06-15",
                 "location": "[resourceGroup().location]",
@@ -96,7 +105,7 @@
         "outputs": {}
       },
       "resourceGroup": "resourceGroup3",
-      "displayName": "vnet-spoke-002",
+      "displayName": "Virtual Network 3",
       "parameters": {
         "creator": {
           "value": "[parameters('globalCreator')]"
@@ -110,5 +119,5 @@
       }
     },
     "type": "Microsoft.Blueprint/blueprints/artifacts",
-    "name": "vnet-spoke-002"
+    "name": "template_vnet-spoke-002"
 }

@@ -1,11 +1,20 @@
 {
     "kind": "template",
     "properties": {
-      "dependsOn": [],
+      "dependsOn": [
+          "template_vnet-hub-001"
+      ],
       "template": {
         "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
         "contentVersion": "1.0.0.0",
         "parameters": {
+            "networkName": {
+                "type": "string",
+                "defaultValue": "vnetspoke-westeu-001",
+                "metadata": {
+                    "displayName": "Name of virtual network"
+                }
+            },
             "creator": {
                 "type": "string",
                 "metadata": {
@@ -43,13 +52,33 @@
             "adressRangeSubnetDomain": {
                 "type": "string",
                 "defaultValue": "10.1.1.96/27"
+            },
+            "remoteNetworkName": {
+                "type": "string",
+                "metadata": {
+                    "displayName": "Remote network name for vnet peering"
+                }
+            },
+            "remoteNetworkId": {
+                "type": "string",
+                "metadata": {
+                    "displayName": "Remote network id for vnet peering"
+                }
+            },
+            "remoteNetworkResourceGroupName": {
+                "type": "string",
+                "metadata": {
+                    "displayName": "Remote network resource group for vnet peering"
+                }
             }
         },
         "functions": [],
-        "variables": {},
+        "variables": {
+            "vnetPeeringName": "[concat('peering_',parameters('networkName'),'_',parameters('remoteNetworkName'))]"
+        },
         "resources": [
             {
-                "name": "vnetspoke-westeu-001",
+                "name": "[parameters('networkName')]",
                 "type": "Microsoft.Network/virtualNetworks",
                 "apiVersion": "2015-06-15",
                 "location": "[resourceGroup().location]",
@@ -90,13 +119,34 @@
                             }
                         }
                     ]
-                }
+                },
+                "resources": [
+                    {
+                        "apiVersion": "2019-12-01",
+                        "type": "virtualNetworkPeerings",
+                        "name": "[variables('vnetPeeringName')]",
+                        "location": "[resourceGroup().location]",
+                        "dependsOn": [
+                            "[concat('Microsoft.Network/virtualNetworks/', parameters('networkName'))]"
+                        ],
+                        "comments": "This is the peering from vNet 1 to vNet 2",
+                        "properties": {
+                            "allowVirtualNetworkAccess": "true",
+                            "allowForwardedTraffic": "true",
+                            "allowGatewayTransit": "false",
+                            "useRemoteGateways": "false",
+                            "remoteVirtualNetwork": {
+                                "id": "[parameters('remoteNetworkId')]"
+                            }
+                        }
+                    }
+                 ]
             }
         ],
         "outputs": {}
       },
       "resourceGroup": "resourceGroup2",
-      "displayName": "vnet-spoke-001",
+      "displayName": "Virtual Network 2",
       "parameters": {
         "creator": {
           "value": "[parameters('globalCreator')]"
@@ -106,9 +156,18 @@
         },
         "purpose": {
             "value": "[parameters('globalPurpose')]"
+        },
+        "remoteNetworkName": {
+            "value": "[artifacts('template_vnet-hub-001').outputs.outputNetworkName]"
+        },
+        "remoteNetworkId": {
+            "value": "[artifacts('template_vnet-hub-001').outputs.outputNetworkId]"
+        },
+        "remoteNetworkResourceGroupName": {
+            "value": "[artifacts('template_vnet-hub-001').outputs.outputResourceGroupName]"
         }
       }
     },
     "type": "Microsoft.Blueprint/blueprints/artifacts",
-    "name": "vnet-spoke-001"
+    "name": "template_vnet-spoke-001"
 }
