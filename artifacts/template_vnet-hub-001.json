@@ -6,6 +6,13 @@
         "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
         "contentVersion": "1.0.0.0",
         "parameters": {
+            "networkName": {
+                "type": "string",
+                "defaultValue": "vnethub-westeu-001",
+                "metadata": {
+                    "displayName": "Name of virtual network"
+                }
+            },
             "creator": {
                 "type": "string",
                 "metadata": {
@@ -49,7 +56,7 @@
         "variables": {},
         "resources": [
             {
-                "name": "vnethub-westeu-001",
+                "name": "[parameters('networkName')]",
                 "type": "Microsoft.Network/virtualNetworks",
                 "apiVersion": "2015-06-15",
                 "location": "[resourceGroup().location]",
@@ -93,10 +100,23 @@
                 }
             }
         ],
-        "outputs": {}
+        "outputs": {
+            "outputNetworkName": {
+                "type": "string",
+                "value": "[parameters('networkName')]"
+             },
+             "outputNetworkId": {
+                "type": "string",
+                "value": "[resourceId('Microsoft.Network/virtualNetworks', parameters('networkName'))]"
+             },
+             "outputResourceGroupName": {
+                "type": "string",
+                "value": "[resourceGroup().name]"
+             }
+        }
       },
       "resourceGroup": "resourceGroup1",
-      "displayName": "vnet-hub-001",
+      "displayName": "Virtual Network 1",
       "parameters": {
         "creator": {
           "value": "[parameters('globalCreator')]"
@@ -110,5 +130,5 @@
       }
     },
     "type": "Microsoft.Blueprint/blueprints/artifacts",
-    "name": "vnet-hub-001"
+    "name": "template_vnet-hub-001"
 }
