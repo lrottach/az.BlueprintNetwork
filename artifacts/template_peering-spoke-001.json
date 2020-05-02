@@ -1,0 +1,80 @@
+{
+    "kind": "template",
+    "properties": {
+      "dependsOn": [
+          "template_vnet-hub-001",
+          "template_vnet-spoke-001",
+          "template_vnet-spoke-002"
+      ],
+      "template": {
+        "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+        "contentVersion": "1.0.0.0",
+        "parameters": {
+            "localNetworkName": {
+                "type": "string",
+                "metadata": {
+                    "displayName": "Local network name for vnet peering"
+                }
+            },
+            "remoteNetworkName": {
+                "type": "string",
+                "metadata": {
+                    "displayName": "Remote network name for vnet peering"
+                }
+            },
+            "remoteNetworkId": {
+                "type": "string",
+                "metadata": {
+                    "displayName": "Remote network id for vnet peering"
+                }
+            },
+            "remoteNetworkResourceGroupName": {
+                "type": "string",
+                "metadata": {
+                    "displayName": "Remote network resource group for vnet peering"
+                }
+            }
+        },
+        "functions": [],
+        "variables": {
+            "vnetPeeringName": "[concat(parameters('localNetworkName'),'/peering-to_',parameters('remoteNetworkName'))]"
+        },
+        "resources": [
+            {
+                "apiVersion": "2019-12-01",
+                "type": "Microsoft.Network/virtualNetworks/virtualNetworkPeerings",
+                "name": "[variables('vnetPeeringName')]",
+                "location": "[resourceGroup().location]",
+                "properties": {
+                    "allowVirtualNetworkAccess": true,
+                    "allowForwardedTraffic": true,
+                    "allowGatewayTransit": false,
+                    "useRemoteGateways": false,
+                    "remoteVirtualNetwork": {
+                    "id": "[parameters('remoteNetworkId')]"
+                    }
+                }
+            }
+        ],
+        "outputs": {}
+      },
+      "resourceGroup": "resourceGroup1",
+      "displayName": "VNET Peering to Spoke 01",
+      "parameters": {
+        "localNetworkName": {
+            "value": "[artifacts('template_vnet-hub-001').outputs.outputNetworkName]"
+        },
+        "remoteNetworkName": {
+            "value": "[artifacts('template_vnet-spoke-001').outputs.outputNetworkName]"
+        },
+        "remoteNetworkId": {
+            "value": "[artifacts('template_vnet-spoke-001').outputs.outputNetworkId]"
+        },
+        "remoteNetworkResourceGroupName": {
+            "value": "[artifacts('template_vnet-spoke-001').outputs.outputResourceGroupName]"
+        }
+      }
+    },
+    "type": "Microsoft.Blueprint/blueprints/artifacts",
+    "name": "template_peering-spoke-001"
+}

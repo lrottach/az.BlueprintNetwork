@@ -52,10 +52,30 @@
             "adressRangeSubnetDesktop": {
                 "type": "string",
                 "defaultValue": "10.1.2.96/27"
+            },
+            "remoteNetworkName": {
+                "type": "string",
+                "metadata": {
+                    "displayName": "Remote network name for vnet peering"
+                }
+            },
+            "remoteNetworkId": {
+                "type": "string",
+                "metadata": {
+                    "displayName": "Remote network id for vnet peering"
+                }
+            },
+            "remoteNetworkResourceGroupName": {
+                "type": "string",
+                "metadata": {
+                    "displayName": "Remote network resource group for vnet peering"
+                }
             }
         },
         "functions": [],
-        "variables": {},
+        "variables": {
+            "vnetPeeringName": "[concat('peering-to_',parameters('networkName'))]"
+        },
         "resources": [
             {
                 "name": "[parameters('networkName')]",
@@ -99,7 +119,28 @@
                             }
                         }
                     ]
-                }
+                },
+                "resources": [
+                    {
+                        "apiVersion": "2019-12-01",
+                        "type": "virtualNetworkPeerings",
+                        "name": "[variables('vnetPeeringName')]",
+                        "location": "[resourceGroup().location]",
+                        "dependsOn": [
+                            "[concat('Microsoft.Network/virtualNetworks/', parameters('networkName'))]"
+                        ],
+                        "comments": "This is the peering from vNet 1 to vNet 2",
+                        "properties": {
+                            "allowVirtualNetworkAccess": "true",
+                            "allowForwardedTraffic": "true",
+                            "allowGatewayTransit": "false",
+                            "useRemoteGateways": "false",
+                            "remoteVirtualNetwork": {
+                                "id": "[parameters('remoteNetworkId')]"
+                            }
+                        }
+                    }
+                 ]
             }
         ],
         "outputs": {}
@@ -115,6 +156,15 @@
         },
         "purpose": {
             "value": "[parameters('globalPurpose')]"
+        },
+        "remoteNetworkName": {
+            "value": "[artifacts('template_vnet-hub-001').outputs.outputNetworkName]"
+        },
+        "remoteNetworkId": {
+            "value": "[artifacts('template_vnet-hub-001').outputs.outputNetworkId]"
+        },
+        "remoteNetworkResourceGroupName": {
+            "value": "[artifacts('template_vnet-hub-001').outputs.outputResourceGroupName]"
         }
       }
     },

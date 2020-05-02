@@ -74,7 +74,7 @@
         },
         "functions": [],
         "variables": {
-            "vnetPeeringName": "[concat('peering_',parameters('networkName'),'_',parameters('remoteNetworkName'))]"
+            "vnetPeeringName": "[concat('peering-to_',parameters('networkName'))]"
         },
         "resources": [
             {
@@ -143,7 +143,20 @@
                  ]
             }
         ],
-        "outputs": {}
+        "outputs": {
+            "outputNetworkName": {
+                "type": "string",
+                "value": "[parameters('networkName')]"
+             },
+             "outputNetworkId": {
+                "type": "string",
+                "value": "[resourceId('Microsoft.Network/virtualNetworks', parameters('networkName'))]"
+             },
+             "outputResourceGroupName": {
+                "type": "string",
+                "value": "[resourceGroup().name]"
+             }
+        }
       },
       "resourceGroup": "resourceGroup2",
       "displayName": "Virtual Network 2",
